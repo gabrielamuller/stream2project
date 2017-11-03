@@ -1,0 +1,22 @@
+#value {
+    font-size: 50px;
+    text-align: center;
+}
+
+.section-paragraph {
+    background-color: #F1F1F1;
+    font-weight: bold;
+    padding: 5px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    
+}
+
+#chart1, #chart2, #chart3, #chart4 {
+    margin-top: 20px;
+}
+
+rect.bar {
+    fill: #FB8D47;
+  
+}

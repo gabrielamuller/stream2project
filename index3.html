@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+    <link rel="stylesheet" type="text/css" href="static/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="static/bootswatch_cosmo.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="assets/style.css"/>
+    
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
+    
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">US Mass Shootings (1966 - 2017)</a>
+            </div>
+    </nav>
+    <main>
+        <section class = "section">
+            <div class ="container">
+                 <div class="row">
+            <div class="col-xs-12 col-sm-4 text-center">
+              <p class="section-paragraph">Number of shootings</p>
+              </div>
+	        </div>
+                <div class = "row">
+                    <div class="col-xs-12 col-sm-4">
+                    	<div id="value"></div>
+                    </div> 
+                </div>
+            </div>
+        </section>
+    <hr>
+<section class="section">
+	    <div class="container">
+	        <div class="row">
+    	        <div class="col-xs-12 col-sm-4 text-center">
+    	          <p class="section-paragraph">Mental health issues of shooters</p>
+    	          </div>
+    	          <div class="col-xs-12 col-sm-4 text-center">
+    	            <p class="section-paragraph">Race of shooters</p>
+    	          </div>
+    	          <div class="col-xs-12 col-sm-4 text-center">
+    			  <p class="section-paragraph">Gender of shooters</p>	          
+    			</div>
+	        </div>
+
+	        <div class="row">
+	          <div class="col-xs-12 col-sm-4 text-center" id="chart1"></div>
+	          <div class="col-xs-12 col-sm-4 text-center" id="chart2"></div>
+	          <div class="col-xs-12 col-sm-4 text-center" id="chart3"></div>
+	        </div>
+	      </div>
+	  
+	    </section>
+	  <hr>  
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+              <p class="section-paragraph">Total number of injured</p>
+              </div>
+	        </div>
+        <div class="row">
+           <div class="col-sm-12 text-center" id="chart4"></div>
+        </div>
+    </div>
+</section>
+<hr>
+<section class="section">
+    <div class="container">
+        <div class="row">
+           
+            <div class="col-sm-12 text-center" id="chart5"></div>
+        </div>
+    </div>
+</section>
+</main>
+<script type="text/javascript" src="assets/graphs.js"></script>
+    
+</body>
+</html>
