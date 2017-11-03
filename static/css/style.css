@@ -1,6 +1,8 @@
-#value {
+#value, #value2 {
     font-size: 50px;
     text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .section-paragraph {
@@ -15,6 +17,7 @@
 #chart1, #chart2, #chart3, #chart4 {
     margin-top: 20px;
 }
+
 
 rect.bar {
     fill: #FB8D47;

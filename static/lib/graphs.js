@@ -1,9 +1,10 @@
 
     queue()
         .defer(d3.csv, "data/mass_shootings.csv")
+        .defer(d3.json, "data/us-states.json")
         .await(makeGraphs);
 
-    function makeGraphs(error, shootingsData) {
+    function makeGraphs(error, shootingsData, statesJson) {
         var ndx = crossfilter(shootingsData);
         
         var parseDate = d3.time.format("%m/%d/%Y").parse;
@@ -57,37 +58,63 @@
            else (d.Race = "Unknown")
         });
         
-        var gender_dim = ndx.dimension(dc.pluck('Mental_health_issues'));
-        var count_by_gender = gender_dim.group();
+        var stateDim = ndx.dimension(dc.pluck('Location'));
+        var group = stateDim.group();
+        var usamap = dc.geoChoroplethChart("#usa-map");
+        
+         usamap.width(600)
+            .height(330)
+            .dimension(stateDim)
+            .group(group)
+            .colors(["#E2F2FF", "#C4E4FF", "#9ED2FF", "#81C5FF", "#6BBAFF", "#51AEFF", "#36A2FF", "#1E96FF", "#0089FF", "#7C151D"])
+            .colorDomain([0, 40])
+            .overlayGeoJson(statesJson["features"], "state", function (d) {
+                return d.properties.name;
+            })
+            .projection(d3.geo.albersUsa()
+                .scale(600)
+                .translate([340, 150]))
+            .title(function (p) {
+                return "State: " + p["key"]
+                    + "\n"
+                    + "Total Shootings: " + Math.round(p["value"]);
+            });
+        
+        var mental_dim = ndx.dimension(dc.pluck('Mental_health_issues'));
+        var count_by_mental = mental_dim.group();
+        
         
         dc.barChart("#chart1")
-            .height(300)
-            .width(400)
+            .height(250)
+            .width(350)
             .margins({top: 10, right: 50, bottom: 30, left: 50})
-            .dimension(gender_dim)
-            .group(count_by_gender)
+            .dimension(mental_dim)
+            .group(count_by_mental)
             .transitionDuration(500)
             .x(d3.scale.ordinal())
             .xUnits(dc.units.ordinal)
             .xAxisLabel("Mental Health Issues")
             .yAxis().ticks(4);
             
-       var gender_dim = ndx.dimension(dc.pluck('Race'));
-       var count_by_gender = gender_dim.group();
+       var race_dim = ndx.dimension(dc.pluck('Race'));
+       var count_by_race = race_dim.group();
+       var colorScale = d3.scale.ordinal().range(["#7C151D", "#0089FF", "#FB8D47", "#E2F2FF", "#9ED2FF", "#6BBAFF"]);
         dc.pieChart('#chart2')
             .height(330)
             .radius(90)
             .transitionDuration(1500)
-            .dimension(gender_dim)
-            .group(count_by_gender)
-            .legend(dc.legend().x(0).y(0).gap(5));
+            .dimension(race_dim)
+            .group(count_by_race)
+            .legend(dc.legend().x(0).y(0).gap(0))
+            .colors(colorScale);
+            
             
         var gender_dim = ndx.dimension(dc.pluck('Gender'));
         var count_by_gender = gender_dim.group();
         
         dc.barChart("#chart3")
-            .height(300)
-            .width(400)
+            .height(250)
+            .width(350)
             .margins({top: 10, right: 50, bottom: 30, left: 50})
             .dimension(gender_dim)
             .group(count_by_gender)
@@ -98,17 +125,18 @@
             .yAxis().ticks(4);
             
         var date_dim = ndx.dimension(dc.pluck("date"));
-        var total_spend_per_date = date_dim.group().reduceSum(dc.pluck("Total_victims"));
+        var total_victims_per_date = date_dim.group().reduceSum(dc.pluck("Total_victims"));
         
         var minDate = date_dim.bottom(1)[0].date;
         var maxDate = date_dim.top(1)[0].date;
+    
         
         dc.lineChart("#chart4")
             .width(1000)
             .height(400)
             .margins({top: 10, right: 50, bottom: 30, left: 50})
             .dimension(date_dim)
-            .group(total_spend_per_date)
+            .group(total_victims_per_date)
             .transitionDuration(500)
             .x(d3.time.scale().domain([minDate,maxDate]))
             .xAxisLabel("Date")
@@ -123,12 +151,12 @@
     
     var obj = document.getElementById(id);
     var range = end - start;
-    // no timer shorter than 50ms (not really visible any way)
+   
     var minTimer = 50;
     // calc step time to show all interediate values
     var stepTime = Math.abs(Math.floor(duration / range));
     
-    // never go below minTimer
+    
     stepTime = Math.max(stepTime, minTimer);
     
     // get current time and calculate desired end time
@@ -151,6 +179,40 @@
 }
 
 animateValue("value", 100, 320, 2000);
+
+function animateValue(id, start, end, duration) {
+    // assumes integer values for start and end
+    
+    var obj = document.getElementById(id);
+    var range = end - start;
+   
+    var minTimer = 50;
+    // calc step time to show all interediate values
+    var stepTime = Math.abs(Math.floor(duration / range));
+    
+    
+    stepTime = Math.max(stepTime, minTimer);
+    
+    // get current time and calculate desired end time
+    var startTime = new Date().getTime();
+    var endTime = startTime + duration;
+    var timer;
+  
+    function run() {
+        var now = new Date().getTime();
+        var remaining = Math.max((endTime - now) / duration, 0);
+        var value = Math.round(end - (remaining * range));
+        obj.innerHTML = value;
+        if (value == end) {
+            clearInterval(timer);
+        }
+    }
+    
+    timer = setInterval(run, stepTime);
+    run();
+}
+
+animateValue("value2", 100, 1400, 2000);
 
 
 
