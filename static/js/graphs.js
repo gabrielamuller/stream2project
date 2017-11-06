@@ -1,10 +1,13 @@
 
     queue()
-        .defer(d3.csv, "data/mass_shootings2.csv")
-        .defer(d3.json, "data/us-states.json")
+        //.defer(d3.csv, "data/mass_shootings2.csv")
+        .defer(d3.json, "/data")
+        .defer(d3.json, "/static/us-states.json")
         .await(makeGraphs);
 
     function makeGraphs(error, shootingsData, statesJson) {
+        console.log(shootingsData);
+        
         var ndx = crossfilter(shootingsData);
         
         var parseDate = d3.time.format("%m/%d/%Y").parse;
@@ -59,7 +62,7 @@
            else (d.Race = "Unknown")
         });
         
-        var stateDim = ndx.dimension(dc.pluck('Location'));
+      var stateDim = ndx.dimension(dc.pluck('Location'));
         var group = stateDim.group();
         var usamap = dc.geoChoroplethChart("#usa-map");
         
@@ -134,7 +137,6 @@
         var minDate = date_dim.bottom(1)[0].date;
         var maxDate = date_dim.top(1)[0].date;
 
-    
         
         dc.lineChart("#chart4")
             .width(1000)
@@ -144,7 +146,8 @@
             .group(total_victims_per_year)
             .transitionDuration(500)
             .x(d3.scale.linear().domain([1966,2017]))
-            .brushOn(false);
+            .brushOn(false)
+            .xAxis().tickFormat("%d");
              //.x(d3.time.scale().domain([minDate,maxDate]))
             //.y(d3.scale.log().domain([1, 600]))
             //.yAxis().tickFormat(d3.format(",.0f")).ticks(4);
