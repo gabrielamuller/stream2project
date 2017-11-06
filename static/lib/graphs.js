@@ -1,6 +1,6 @@
 
     queue()
-        .defer(d3.csv, "data/mass_shootings.csv")
+        .defer(d3.csv, "data/mass_shootings2.csv")
         .defer(d3.json, "data/us-states.json")
         .await(makeGraphs);
 
@@ -10,6 +10,7 @@
         var parseDate = d3.time.format("%m/%d/%Y").parse;
         shootingsData.forEach(function(d){
             d.date = parseDate(d.date);
+            d.year = d.date.getFullYear();
         });
         
         shootingsData.forEach(function(d) {
@@ -125,22 +126,30 @@
             .yAxis().ticks(4);
             
         var date_dim = ndx.dimension(dc.pluck("date"));
+        var year_dim = ndx.dimension(dc.pluck("year"));
         var total_victims_per_date = date_dim.group().reduceSum(dc.pluck("Total_victims"));
+        var total_victims_per_year = year_dim.group().reduceSum(dc.pluck("Total_victims"));
+
         
         var minDate = date_dim.bottom(1)[0].date;
         var maxDate = date_dim.top(1)[0].date;
+
     
         
         dc.lineChart("#chart4")
             .width(1000)
             .height(400)
             .margins({top: 10, right: 50, bottom: 30, left: 50})
-            .dimension(date_dim)
-            .group(total_victims_per_date)
+            .dimension(year_dim)
+            .group(total_victims_per_year)
             .transitionDuration(500)
-            .x(d3.time.scale().domain([minDate,maxDate]))
-            .xAxisLabel("Date")
-            .yAxis().ticks(4);
+            .x(d3.scale.linear().domain([1966,2017]))
+            .brushOn(false);
+             //.x(d3.time.scale().domain([minDate,maxDate]))
+            //.y(d3.scale.log().domain([1, 600]))
+            //.yAxis().tickFormat(d3.format(",.0f")).ticks(4);
+            //.yAxis().ticks(4);
+            //.xAxisLabel("Date")
      
         dc.renderAll();
 
@@ -178,7 +187,7 @@
     run();
 }
 
-animateValue("value", 100, 320, 2000);
+animateValue("value", 100, 323, 2000);
 
 function animateValue(id, start, end, duration) {
     // assumes integer values for start and end
@@ -212,7 +221,7 @@ function animateValue(id, start, end, duration) {
     run();
 }
 
-animateValue("value2", 100, 1400, 2000);
+animateValue("value2", 100, 1432, 2000);
 
 
 
