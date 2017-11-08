@@ -146,7 +146,8 @@
             .group(total_victims_per_year)
             .transitionDuration(500)
             .x(d3.scale.linear().domain([1966,2017]))
-            .brushOn(false);
+            .brushOn(false)
+            lineChart.xAxis().tickFormat(d3.format('d'));
              //.x(d3.time.scale().domain([minDate,maxDate]))
             //.y(d3.scale.log().domain([1, 600]))
             //.yAxis().tickFormat(d3.format(",.0f")).ticks(4);
