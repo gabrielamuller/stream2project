@@ -6,7 +6,6 @@
         .await(makeGraphs);
 
     function makeGraphs(error, shootingsData, statesJson) {
-        console.log(shootingsData);
         
         var ndx = crossfilter(shootingsData);
         
@@ -62,7 +61,7 @@
            else (d.Race = "Unknown")
         });
         
-      var stateDim = ndx.dimension(dc.pluck('Location'));
+        var stateDim = ndx.dimension(dc.pluck('Location'));
         var group = stateDim.group();
         var usamap = dc.geoChoroplethChart("#usa-map");
         
@@ -138,7 +137,7 @@
         var maxDate = date_dim.top(1)[0].date;
 
         
-        dc.lineChart("#chart4")
+        chart4 = dc.lineChart("#chart4")
             .width(1000)
             .height(400)
             .margins({top: 10, right: 50, bottom: 30, left: 50})
@@ -152,6 +151,8 @@
             //.yAxis().tickFormat(d3.format(",.0f")).ticks(4);
             //.yAxis().ticks(4);
             //.xAxisLabel("Date")
+            
+        chart4.xAxis().tickFormat(d3.format('d')); 
         dc.renderAll();
 
     }
