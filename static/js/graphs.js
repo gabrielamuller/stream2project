@@ -152,7 +152,6 @@
             //.yAxis().tickFormat(d3.format(",.0f")).ticks(4);
             //.yAxis().ticks(4);
             //.xAxisLabel("Date")
-        lineChart.xAxis().tickFormat(d3.format('d'));
         dc.renderAll();
 
     }
