@@ -66,4 +66,4 @@ Follow the below instructions to get this project up & running on c9:
 This Application was tested across a range of browsers.
 
 ## Acknowledgments
-Number count from (http://jsfiddle.net/jfriend00/CPtTQ/).
+Number count from http://jsfiddle.net/jfriend00/CPtTQ/.
