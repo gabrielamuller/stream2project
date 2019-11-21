@@ -1,7 +1,7 @@
 # US Mass Shootings 1966-2017
 **Interactive Data visualisation Web Application**
 
-This Web App was built as the second project for the Code Institute's classroom bootcamp. It is a Data Visualisation project using Pythons *Flask* framework.
+This Web App was built as a course project. It is a Data Visualisation project using Pythons *Flask* framework.
 
 ## Live Demo
 
@@ -49,21 +49,14 @@ This Application was deployed and is hosted on Heroku - gunicorn Python package 
 
 ## Installation
 
-Follow the below instructions to get this project up & running on c9:
+Follow the below instructions to get this project up & running:
 
-1. Login to mLab, create a new database and add the mass_shootings2.csv
-2. Create a new project on c9 and type:
-    `$ git clone https://github.com/gabrielamuller/stream2project.git`
-3. Install the project dependancies:
-    `$ sudo pip3 install Flask`
-    `$ sudo pip3 install pymongo`
-4. Connect to the MongoDB on c9
-6. Navigate to the 'mass_shootings.py' and run the app on terminal:
-    `$ python3 mass_shootings.py`
-
-
-## Testing
-This Application was tested across a range of browsers.
+1. Create a new folder for the project and copy the code there
+2. Create and activate a new Virtual Environment in terminal: Create: `$ virtualenv --no-site-packages .` Activate: `$ source bin/activate`
+3. Install the project dependancies: `$ pip install -r requirements.txt`
+4. Connect to the MongoDB
+6. Run'mass_shootings.py' and you should see the address where it's running below:
+    `$ python mass_shootings.py`
 
 ## Acknowledgments
 Number count from http://jsfiddle.net/jfriend00/CPtTQ/.

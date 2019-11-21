@@ -10,18 +10,15 @@
     font-weight: bold;
     padding: 5px;
     margin-bottom: 20px;
-    margin-top: 10px;
-    
+    margin-top: 10px;    
 }
 
 #chart1, #chart2, #chart3, #chart4 {
     margin-top: 20px;
 }
 
-
 rect.bar {
-    fill: #FB8D47;
-  
+    fill: #FB8D47; 
 }
 
 .btn {
